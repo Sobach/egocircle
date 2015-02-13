@@ -1,78 +1,75 @@
 <!doctype html>
+<!--https://www.tipsandtricks-hq.com/how-to-add-javascript-in-a-wordpress-post-or-page-1845-->
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Form-circle questionarie</title>
+		<title>Круг Эго</title>
 		<style>
 		    .wrapper {
-		    	width: 800px;
-		    	margin-left: auto;
-		    	margin-right: auto;
+				margin-left: auto;
+				margin-right: auto;
 		    }
-
 		    #sphere {
-		    	width: 400px;
-		    	margin: 0 auto;
+				margin: 0 auto;
 		    }
 			.d3-slider {
-			    position: relative;
-			    font-family: Verdana,Arial,sans-serif;
-			    font-size: 1.1em;
-			    border: 1px solid #aaaaaa;
-			    z-index: 2;
+				position: relative;
+				font-family: Verdana,Arial,sans-serif;
+				font-size: 1.1em;
+				border: 1px solid #aaaaaa;
+				z-index: 2;
 			}
 			.d3-slider-horizontal {
-			    height: .8em;
+				height: .8em;
 			}  
 			.d3-slider-vertical {
-			    width: .8em;
-			    height: 100px;
+				width: .8em;
+				height: 100px;
 			}      
 			.d3-slider-handle {
-			    position: absolute;
-			    width: 1.2em;
-			    height: 1.2em;
-			    border: 1px solid #d3d3d3;
-			    border-radius: 4px;
-			    background: #eee;
-			    background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
-			    z-index: 3;
+				position: absolute;
+				width: 1.2em;
+				height: 1.2em;
+				border: 1px solid #d3d3d3;
+				border-radius: 4px;
+				background: #eee;
+				background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+				z-index: 3;
 			}
 			.d3-slider-handle:hover {
-			    border: 1px solid #999999;
+				border: 1px solid #999999;
 			}
 			.d3-slider-horizontal .d3-slider-handle {
-			    top: -.3em;
-			    margin-left: -.6em;
+				top: -.3em;
+				margin-left: -.6em;
 			}
 			.d3-slider-axis {
-			    position: relative;
-			    z-index: 1;    
+				position: relative;
+				z-index: 1;    
 			}
 			.d3-slider-axis-bottom {
-			    top: .8em;
+				top: .8em;
 			}
 			.d3-slider-axis-right {
-			    left: .8em;
+				left: .8em;
 			}
 			.d3-slider-axis path {
-			    stroke-width: 0;
-			    fill: none;
+				stroke-width: 0;
+				fill: none;
 			}
 			.d3-slider-axis line {
-			    fill: none;
-			    stroke: #aaa;
-			    shape-rendering: crispEdges;
+				fill: none;
+				stroke: #aaa;
+				shape-rendering: crispEdges;
 			}
 			.d3-slider-axis text {
-			    font-size: 11px;
+				font-size: 11px;
 			}
 			.d3-slider-vertical .d3-slider-handle {
-			    left: -.25em;
-			    margin-left: 0;
-			    margin-bottom: -.6em;      
+				left: -.25em;
+				margin-left: 0;
+				margin-bottom: -.6em;      
 			}
-
 			.arc path {
 				stroke: #000000;
 			}
@@ -87,78 +84,73 @@
 
 			<h2>Самооценка</h2>
 			<h3>Я согласен с тем, как меня оценивают знакомые люди</h3>
-			<div id="slider1"></div>
+			<div id="slider1" class="d3-slider"></div>
 			<h3>У меня в запасе много нереализованного потенциала</h3>
-			<div id="slider2"></div>
+			<div id="slider2" class="d3-slider"></div>
 
 			<h2>Локус контроля</h2>
 			<h3>Окружающие ведут себя по отношению ко мне справедливо</h3>
-			<div id="slider3"></div>
+			<div id="slider3" class="d3-slider"></div>
 			<h3>Люди стараются быть внимательными друг к другу</h3>
-			<div id="slider4"></div>
+			<div id="slider4" class="d3-slider"></div>
 
 			<h2>Субъектность</h2>
 			<h3>Я делаю то, что считаю правильным и полезным</h3>
-			<div id="slider5"></div>
+			<div id="slider5" class="d3-slider"></div>
 			<h3>Я согласен с общепринятыми критериями успешности человека</h3>
-			<div id="slider6"></div>
+			<div id="slider6" class="d3-slider"></div>
 
 			<h2>Объектность</h2>
 			<h3>Жизнь приносит мне радость и удовольствие</h3>
-			<div id="slider7"></div>
+			<div id="slider7" class="d3-slider"></div>
 			<h3>Чувственное наслаждение для жизни очень важно</h3>
-			<div id="slider8"></div>
+			<div id="slider8" class="d3-slider"></div>
 		</div>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
-		<!--<script src="http://benschmidt.org/colorbar/colorbar.js"></script>-->
-		<script src="colorbar.js"></script>
 		<script src="http://thematicmapping.org/playground/d3/d3.slider/d3.slider.js"></script>
 		<script>
+			/* Evaluating screen width */
+			if(window.innerWidth >= 900){
+				var width = 800,
+					img_width = 400;
+			}else if(window.innerWidth >= 500){
+				var width = window.innerWidth*.8,
+					img_width = 400;
+			}else{
+				var width = window.innerWidth*.8,
+					img_width = window.innerWidth*.8;
+			}
+			d3.select(".wrapper")
+				.style("width", width+"px");
+			d3.select("#sphere")
+				.style("width", img_width+"px");
+
+			/* Icons and initial values for sectors */
 			var data = [{'label':'cross', 'icon':'cross.svg', 'color':100},
 						{'label':'sun', 'icon':'sun.svg', 'color':100},
 						{'label':'moon', 'icon':'moon.svg', 'color':100},
-						{'label':'pyramid', 'icon':'pyramid.svg', 'color':100}],
-				arc = d3.svg.arc()
-					.outerRadius(190)
+						{'label':'pyramid', 'icon':'pyramid.svg', 'color':100}];
+
+			/* Color scale */
+			var color_scale = {'breaks':[0, 40, 90, 115, 140, 170, 185, 200],
+							   'labels':["#ff3333", "#ff9933", "#ffff33", "#99ff33", "#33ff33", "#33ff99", "#33ffff", "#3399ff"]},
+				color = d3.scale.linear()
+					.domain(color_scale.breaks)
+					.range(color_scale.labels);
+
+			/* Creating circle */
+			var arc = d3.svg.arc()
+					.outerRadius(img_width/2)
 					.innerRadius(0),
 				pie = d3.layout.pie()
 					.sort(null)
 					.value(function(d) { return 25; });
 
-			var color = d3.scale.linear()
-				.domain([0, 40, 90, 115, 140, 170, 185, 200])
-				.range(["#ff3333", "#ff9933", "#ffff33", "#99ff33", "#33ff33", "#33ff99", "#33ffff", "#3399ff"]);
-
 			var svg = d3.select("#sphere").append("svg")
-				.attr("width", 400)
-				.attr("height", 400)
+				.attr("width", img_width)
+				.attr("height", img_width)
 				.append("g")
-					.attr("transform", "translate(200,200)");
-
-			aformat = function(v){
-				if (v==0){ return 'Нет'; }
-				else if(v==30){ return 'Скорее нет'; }
-				else if(v==70){ return 'Скорее да'; }
-				else if(v==100){ return 'Да'; }
-				else{ return v; };};
-
-			var s11 = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(aformat)),
-				s12 = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(aformat)),
-				s21 = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(aformat)),
-				s22 = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(aformat)),
-				s31 = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(aformat)),
-				s32 = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(aformat)),
-				s41 = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(aformat)),
-				s42 = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(aformat));
-
-			d3.select('#slider1').call(s11);
-			d3.select('#slider2').call(s12);
-			d3.select('#slider3').call(s21);
-			d3.select('#slider4').call(s22);
-			d3.select('#slider5').call(s31);
-			d3.select('#slider6').call(s32);
-			d3.select('#slider7').call(s41);
-			d3.select('#slider8').call(s42);
+					.attr("transform", "translate("+img_width/2+","+img_width/2 +")");
 
 			var g = svg.selectAll(".arc")
 				.data(pie(data))
@@ -171,67 +163,64 @@
 				.style("fill", function(d) { return color(d.data.color); });
 
 			g.append("image")
-				.attr("transform", function(d) { a = arc.centroid(d); a.forEach(function(v, i){ a[i] = v-50; }); return "translate(" + a + ")"; })
+				.attr("transform", function(d) { a = arc.centroid(d); a.forEach(function(v, i){ a[i] = v-(img_width/8); }); return "translate(" + a + ")"; })
 				.attr("xlink:href", function(d) { return d.data.icon; })
-				.attr("width", 100)
-				.attr("height", 100);
+				.attr("width", img_width/4)
+				.attr("height", img_width/4);
 
-			colorbar = Colorbar()
-				.scale(color)
-				.barlength(800)
-				.thickness(30)
-				.orient("horizontal");
+			/* Creating legend */
+			var legend = d3.select("#legend").append("svg").attr("height", 50).attr("width", width),
+				gradient = legend
+				.append("linearGradient")
+				.attr("y1", "0")
+				.attr("y2", "0")
+				.attr("x1", "0")
+				.attr("x2", width)
+				.attr("id", "gradient")
+				.attr("gradientUnits", "userSpaceOnUse");
+			
+			gradient
+				.selectAll("stop")
+				.data(d3.range(color_scale.breaks.length))
+				.enter().append("stop")
+				.attr("offset", function(d){ return color_scale.breaks[d]/d3.max(color_scale.breaks); })
+				.attr("stop-color", function(d){ return color_scale.labels[d]; });
+    
+			legend
+				.append("rect")
+				.attr("x", 0)
+				.attr("y", 0)
+				.attr("width", width)
+				.attr("height", 50)
+				.attr("fill", "url(#gradient)");
 
-			colorbarObject = d3.select('#legend')
-				.call(colorbar)
+			/* Creating sliders */
+			var proto_slider = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(function(v){
+																																if (v==0){ return 'Нет'; }
+																																else if(v==30){ return 'Скорее нет'; }
+																																else if(v==70){ return 'Скорее да'; }
+																																else if(v==100){ return 'Да'; }
+																																else{ return v; };
+																															})),
+				sliders_position = {'slider1':50, 'slider2':50, 'slider3':50, 'slider4':50, 'slider5':50, 'slider6':50, 'slider7':50, 'slider8':50};
+			d3.selectAll('.d3-slider').call(proto_slider);
 
-			s11.on("slide", function(evt, value) {
-				d3.select("#sector-pyramid")
+			/* Adjusting circle on sliders update */
+			proto_slider.on("slide", function(evt, value){
+				sliders_position[evt.toElement.id] = value;
+				if(evt.toElement.id == 'slider1' | evt.toElement.id == 'slider2'){
+					sector = ['pyramid', 'slider1', 'slider2'];
+				}else if(evt.toElement.id == 'slider3' | evt.toElement.id == 'slider4'){
+					sector = ['cross', 'slider3', 'slider4'];
+				}else if(evt.toElement.id == 'slider5' | evt.toElement.id == 'slider6'){
+					sector = ['sun', 'slider5', 'slider6'];
+				}else if(evt.toElement.id == 'slider7' | evt.toElement.id == 'slider8'){
+					sector = ['moon', 'slider7', 'slider8'];
+				};
+				d3.select("#sector-"+sector[0])
 					.transition()
-					.style("fill", function(d) { return color(value+s12.value()); });
-			})
-
-			s12.on("slide", function(evt, value) {
-				d3.select("#sector-pyramid")
-					.transition()
-					.style("fill", function(d) { return color(value+s11.value()); });
-			})
-
-			s21.on("slide", function(evt, value) {
-				d3.select("#sector-cross")
-					.transition()
-					.style("fill", function(d) { return color(value+s22.value()); });
-			})
-
-			s22.on("slide", function(evt, value) {
-				d3.select("#sector-cross")
-					.transition()
-					.style("fill", function(d) { return color(value+s21.value()); });
-			})
-
-			s31.on("slide", function(evt, value) {
-				d3.select("#sector-sun")
-					.transition()
-					.style("fill", function(d) { return color(value+s32.value()); });
-			})
-
-			s32.on("slide", function(evt, value) {
-				d3.select("#sector-sun")
-					.transition()
-					.style("fill", function(d) { return color(value+s31.value()); });
-			})
-
-			s41.on("slide", function(evt, value) {
-				d3.select("#sector-moon")
-					.transition()
-					.style("fill", function(d) { return color(value+s42.value()); });
-			})
-
-			s42.on("slide", function(evt, value) {
-				d3.select("#sector-moon")
-					.transition()
-					.style("fill", function(d) { return color(value+s41.value()); });
-			})
+					.style("fill", function(d) { return color(sliders_position[sector[1]]+sliders_position[sector[2]]); });
+			});
 		</script>
 	</body>
 </html>
