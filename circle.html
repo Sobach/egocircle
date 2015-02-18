@@ -196,25 +196,28 @@
 
 			/* Creating sliders */
 			var proto_slider = d3.slider().value(50).axis(d3.svg.axis().orient("top").tickValues([0, 30, 70, 100]).tickFormat(function(v){
-																																if (v==0){ return 'Нет'; }
-																																else if(v==30){ return 'Скорее нет'; }
-																																else if(v==70){ return 'Скорее да'; }
-																																else if(v==100){ return 'Да'; }
-																																else{ return v; };
-																															})),
+					if (v==0){ return 'Нет'; }
+					else if(v==30){ return 'Скорее нет'; }
+					else if(v==70){ return 'Скорее да'; }
+					else if(v==100){ return 'Да'; }
+					else{ return v; };
+				})),
 				sliders_position = {'slider1':50, 'slider2':50, 'slider3':50, 'slider4':50, 'slider5':50, 'slider6':50, 'slider7':50, 'slider8':50};
 			d3.selectAll('.d3-slider').call(proto_slider);
 
 			/* Adjusting circle on sliders update */
 			proto_slider.on("slide", function(evt, value){
-				sliders_position[evt.toElement.id] = value;
-				if(evt.toElement.id == 'slider1' | evt.toElement.id == 'slider2'){
+				var slider_id = (typeof evt.toElement === 'undefined') ? evt.target.parentNode.id : evt.toElement.id;
+				/* var slider_id = (evt.toElement.id || evt.target.parentNode.id);*/
+				/*console.log(evt.target.parentNode.id);*/
+				sliders_position[slider_id] = value;
+				if(slider_id == 'slider1' | slider_id == 'slider2'){
 					sector = ['pyramid', 'slider1', 'slider2'];
-				}else if(evt.toElement.id == 'slider3' | evt.toElement.id == 'slider4'){
+				}else if(slider_id == 'slider3' | slider_id == 'slider4'){
 					sector = ['cross', 'slider3', 'slider4'];
-				}else if(evt.toElement.id == 'slider5' | evt.toElement.id == 'slider6'){
+				}else if(slider_id == 'slider5' | slider_id == 'slider6'){
 					sector = ['sun', 'slider5', 'slider6'];
-				}else if(evt.toElement.id == 'slider7' | evt.toElement.id == 'slider8'){
+				}else if(slider_id == 'slider7' | slider_id == 'slider8'){
 					sector = ['moon', 'slider7', 'slider8'];
 				};
 				d3.select("#sector-"+sector[0])
